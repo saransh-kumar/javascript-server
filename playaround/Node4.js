@@ -1,6 +1,6 @@
 // prime
 
-function Prime(checkNumber){
+function prime(checkNumber){
     let flag = 0;
     for(let i=2;i<checkNumber/2;i++){
         if(checkNumber%i == 0){
@@ -17,4 +17,4 @@ function Prime(checkNumber){
     console.log();
 }
 
-Prime(process.argv[2]);
+prime(process.argv[2]);

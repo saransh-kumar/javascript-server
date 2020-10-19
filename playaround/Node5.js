@@ -1,6 +1,6 @@
 // Factorial
 
-function Factorial(number){
+function factorial(number){
     let i,fact=1;     
     for(i=1;i<=number;i++){    
         fact=fact*i;    
@@ -9,4 +9,4 @@ function Factorial(number){
     console.log();
 }
 
-Factorial(process.argv[2]);
+factorial(process.argv[2]);
