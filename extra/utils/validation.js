@@ -1,7 +1,7 @@
                    
-                   // TASK 1 (Day - 4) - #39517
+// TASK 1 (Day - 4) - #39517
      
-users = [{
+const users = [{
         traineeEmail: 'saransh@gmail.com',
         reviewerEmail: 'mehunna@gmail.com',
     },
@@ -13,32 +13,31 @@ users = [{
         traineeEmail: 'trainee1@successive.tech',
         reviewerEmail: 'reviewer1@successive.tech',
     }
-    ]
+]
+
 
 function validateEmail(email) {
     let emailRegex = /\w+.\w+@successive.tech$/i
     return emailRegex.test(email)
 };
 
+const validUser = [];
+const invalidUser = [];
 function validateUsers(users){
-    let countValid=0;
-    let countInvalid=0;
-
-    users.forEach(function(item, value, array){
-        if(validateEmail(item.traineeEmail)){
-            countValid++;
+    users.forEach(function(user){
+        const {traineeEmail, reviewerEmail} = user;
+        if(validateEmail(traineeEmail) && validateEmail(reviewerEmail)){
+            validUser.push(user);   
         }
         else{
-            countInvalid++;
-        }
-        if(validateEmail(item.reviewerEmail)){
-            countValid++;
-        }
-        else{
-            countInvalid++;
+            invalidUser.push(user);
         }
     })
-    console.log("Valid: "+countValid+" Invalid: "+countInvalid);
 };
 
 validateUsers(users);
+
+console.log("Valid user count: " + validUser.length);
+console.log(validUser);
+console.log("Invalid user count: " + invalidUser.length);
+console.log(invalidUser);
