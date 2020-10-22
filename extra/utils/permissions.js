@@ -9,7 +9,7 @@ let permissions = {
         all: ['head-trainer','trainee'],
         read: [ 'trainer'],
         write: ['trainer'],
-        delete: ['trainer'],
+        delete: [],
     },
     'getUsers2': {
         all: ['head-trainer'],
@@ -17,17 +17,23 @@ let permissions = {
         write: ['trainer', 'trainer'],
         delete: [],
     }
-}
+};
 function hasPermission(moduleName, role, permissionType){
-    if(permissions[moduleName].all.includes(role)){   // checks only for permissionType 'all'
-        return true;
+    if(permissions[moduleName].all.includes(role)){   // checks only for permissionType 'all'   
+        console.log("The " + role + " has permission to "+permissionType);
     }
     else{
-        return permissions[moduleName][permissionType].includes(role);
+        const permission = permissions[moduleName][permissionType].includes(role);
+        if(permission){
+            console.log("The " + role + " has permission to "+permissionType);
+        }
+        else{
+            console.log("The " + role + " has no permission to "+permissionType);
+        }
     }
 };
 
-console.log(hasPermission('getUsers', 'head-trainer', 'delete'));
+hasPermission('getUsers1', 'trainer', 'delete');
 
 // console.log(hasPermission('getUsers', 'head-trainer', 'all'));
 // console.log(hasPermission('getUsers2', 'trainee', 'delete'));
