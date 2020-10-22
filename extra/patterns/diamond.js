@@ -1,6 +1,6 @@
 
 let rows = 8;
-function diamond(rows){
+export default function diamond(rows){
     if(rows<2 || rows>10){
         console.log("Input range between 2-10");
     }
@@ -36,5 +36,3 @@ function diamond(rows){
     }
     }
 } 
-
-diamond(process.argv[2]);

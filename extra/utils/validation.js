@@ -1,7 +1,6 @@
-                   
-// TASK 1 (Day - 4) - #39517
-     
-const users = [{
+import {validateEmail} from './helpers';
+
+export const users = [{
         traineeEmail: 'saransh@gmail.com',
         reviewerEmail: 'mehunna@gmail.com',
     },
@@ -15,15 +14,9 @@ const users = [{
     }
 ]
 
-
-function validateEmail(email) {
-    let emailRegex = /\w+.\w+@successive.tech$/i
-    return emailRegex.test(email)
-};
-
 const validUser = [];
 const invalidUser = [];
-function validateUsers(users){
+export default function validateUsers(users){
     users.forEach(function(user){
         const {traineeEmail, reviewerEmail} = user;
         if(validateEmail(traineeEmail) && validateEmail(reviewerEmail)){
@@ -33,11 +26,10 @@ function validateUsers(users){
             invalidUser.push(user);
         }
     })
+    console.log("Valid user count: " + validUser.length);
+    console.log(validUser);
+    console.log("Invalid user count: " + invalidUser.length); 
+    console.log(invalidUser);                                     
 };
 
-validateUsers(users);
 
-console.log("Valid user count: " + validUser.length);
-console.log(validUser);
-console.log("Invalid user count: " + invalidUser.length);
-console.log(invalidUser);
