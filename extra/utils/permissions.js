@@ -38,3 +38,4 @@ export function hasPermission(moduleName, role, permissionType){
 // console.log(hasPermission('getUsers2', 'trainee', 'delete'));
 // console.log(hasPermission('getUsers1', 'trainer', 'delete'));
 // console.log(permissions[moduleName][permissionType].includes(role));
+
