@@ -1,6 +1,6 @@
 import { diamond, equilateral } from './patterns';
 import {  hasPermission, validateUsers } from './utils';
-import permissions from './constants';
+import { permissions } from './constants';
 
 export{
     permissions
