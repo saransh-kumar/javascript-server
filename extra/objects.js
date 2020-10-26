@@ -137,6 +137,7 @@ const object10 = {
   // The Object.is() method determines whether two values are the same value.
   // For example:
 Object.is('foo', 'foo');     // true
+
 Object.is('foo', 'bar');     // false
 Object.is([], []);           // false
 var foo = { a: 1 };

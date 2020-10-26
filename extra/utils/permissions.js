@@ -1,4 +1,4 @@
-let permissions = {
+export const permissions = {
     'getUsers': {
         all: ['head-trainer'],
         read: ['trainee', 'trainer'],
@@ -18,8 +18,8 @@ let permissions = {
         delete: [],
     }
 };
-function hasPermission(moduleName, role, permissionType){
-    if(permissions[moduleName].all.includes(role)){   // checks only for permissionType 'all'   
+export function hasPermission(moduleName, role, permissionType){
+    if(permissions[moduleName].all.includes(role)){     // checks only for permissionType 'all'   
         console.log("The " + role + " has permission to "+permissionType);
     }
     else{
@@ -33,9 +33,9 @@ function hasPermission(moduleName, role, permissionType){
     }
 };
 
-hasPermission('getUsers1', 'trainer', 'delete');
-
+// hasPermission('getUsers1', 'trainer', 'delete');
 // console.log(hasPermission('getUsers', 'head-trainer', 'all'));
 // console.log(hasPermission('getUsers2', 'trainee', 'delete'));
 // console.log(hasPermission('getUsers1', 'trainer', 'delete'));
 // console.log(permissions[moduleName][permissionType].includes(role));
+

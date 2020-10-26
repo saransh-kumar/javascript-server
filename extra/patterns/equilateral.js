@@ -1,5 +1,5 @@
 
-function equilateral(rows){
+export default function equilateral(rows){
     if(rows<2 || rows>10){
         console.log("Input range between 2-10");
     }
@@ -22,5 +22,3 @@ function equilateral(rows){
         }
     }
 }
-let rows = 6;
-equilateral(process.argv[2]);
