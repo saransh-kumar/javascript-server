@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream
 **12Factor app** 
 
 ***Twelve Factor App*** : It helps to create a *declarative* way of coding so that its easy to understand and easy to manipulate in no time. Saving more time will make product cost effective and make space of free time for another task. It provides portability between execution and environment and make clear cut contract. Are suitable for deployment on modern cloud platforms, obviating the need for servers and systems administration;Minimize divergence between development and production, enabling continuous deployment for maximum agility;And can scale up without significant changes to tooling, architecture, or development practices.
+=======
+**12actor app** 
+
+***Twelve Facotor App*** : It helps to create a *declarative* way of coding so that its easy to understand and easy to manipulate in no time. Saving more time will make product cost effective and make space of free time for another task. It provides portability between execution and environment and make clear cut contract. Are suitable for deployment on modern cloud platforms, obviating the need for servers and systems administration;Minimize divergence between development and production, enabling continuous deployment for maximum agility;And can scale up without significant changes to tooling, architecture, or development practices.
+>>>>>>> Stashed changes
 
 
 1. **Codebase** - We can *track our code in versions* so that if someone want to see any previous code can check the version. One codebase tracked in revision control, many deploys and can easily work on it. There is only one codebase per app, but there will be many deploys of the app. A deploy is a running instance of the app. This is typically a production site, and one or more staging sites. Additionally, every developer has a copy of the app running in their local development environment, each of which also qualifies as a deploy.The codebase is the same across all deploys, although different versions may be active in each deploy. For example, a developer has some commits not yet deployed to staging; staging has some commits not yet deployed to production. But they all share the same codebase, thus making them identifiable as   different deploys of the same app.
@@ -28,4 +34,8 @@
 12. **Admin processes** - One-off admin processes should be run in an identical environment as the regular long-running processes of the app. They run against a release, using the same codebase and config as any process run against that release. Admin code must ship with application code to avoid synchronization issues. Run admin/management tasks as one-off processes
 
 
+<<<<<<< Updated upstream
 ***Knowing atleast 8 can make you a good developer. It is important to learn these to make a good and secure applications or a product.***
+=======
+***Knowing atleast 8 can make you a good developer. It is important to learn these to make a good and secure applications or a product.***
+>>>>>>> Stashed changes
