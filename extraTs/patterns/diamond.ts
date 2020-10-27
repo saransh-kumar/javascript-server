@@ -1,5 +1,3 @@
-
-let rows = 8;
 export default function diamond(rows){
     if(rows<2 || rows>10){
         console.log("Input range between 2-10");
