@@ -10,8 +10,8 @@ class Server {
     }
 
     public bootstrap() {
-        this.setupRoutes();
         this.initBodyParser();
+        this.setupRoutes();
         return this;
     }
 
@@ -23,11 +23,10 @@ class Server {
         this.app.use( notFoundRoute );
 
         this.app.use( errorHandler );
-        return this;
     }
 
     public initBodyParser () {
-        this.app.use(bodyparser.json());
+        this.app.use(bodyparser.json({ type: '/application/**json'}));
     }
 
     public run() {
