@@ -3,5 +3,5 @@ import { config } from './config';
 
 const server = new Server(config.parsed);
 Object.freeze(config);
-server.bootstrap().run()
+server.bootstrap().run();
 
