@@ -28,8 +28,5 @@
 12. **Admin processes** - One-off admin processes should be run in an identical environment as the regular long-running processes of the app. They run against a release, using the same codebase and config as any process run against that release. Admin code must ship with application code to avoid synchronization issues. Run admin/management tasks as one-off processes
 
 
-<<<<<<< Updated upstream
 ***Knowing atleast 8 can make you a good developer. It is important to learn these to make a good and secure applications or a product.***
-=======
-***Knowing atleast 8 can make you a good developer. It is important to learn these to make a good and secure applications or a product.***
->>>>>>> Stashed changes
+
