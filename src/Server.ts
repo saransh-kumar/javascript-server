@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyparser from 'body-parser';
 import { notFoundRoute, errorHandler } from './libs/routes';
+import { nextTick } from 'process';
 
 // console.log(bodyparser);
 class Server {
@@ -16,17 +17,31 @@ class Server {
     }
 
     public setupRoutes() {
-        this.app.use('/health-check', (req, res) => {
+<<<<<<< Updated upstream
+        const { app } = this;
+
+        app.use((req, res, next) => {
+            console.log('Inside First MiddleWare');
+            next();
+        });
+
+        app.use('/health-check', (req, res) => {
+=======
+        this.app.use('/health-check', (req, res, next) => {
+>>>>>>> Stashed changes
             res.send('I am OK');
+            next();
         });
 
         this.app.use( notFoundRoute );
 
         this.app.use( errorHandler );
+
+        return this;
     }
 
     public initBodyParser () {
-        this.app.use(bodyparser.json({ type: '/application/**json'}));
+        this.app.use(bodyparser.json({ type: 'application/*+json' }));
     }
 
     public run() {
