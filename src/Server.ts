@@ -17,7 +17,6 @@ class Server {
     }
 
     public setupRoutes() {
-<<<<<<< Updated upstream
         const { app } = this;
 
         app.use((req, res, next) => {
@@ -26,11 +25,7 @@ class Server {
         });
 
         app.use('/health-check', (req, res) => {
-=======
-        this.app.use('/health-check', (req, res, next) => {
->>>>>>> Stashed changes
             res.send('I am OK');
-            next();
         });
 
         this.app.use( notFoundRoute );
