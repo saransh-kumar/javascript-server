@@ -1,8 +1,9 @@
+import * as dotenv  from 'dotenv';
 const envVars = require('dotenv').config();
-// import * as dotenv  from 'dotenv';
+// import { config } from 'dotenv';
 
-console.log("Inside config");
-// console.log(dotenv);
+console.log('Inside config');
+console.log(dotenv);
 
 const config = envVars;
 
