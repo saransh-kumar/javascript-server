@@ -19,10 +19,15 @@
     ]
     },
     },
-    "exclude": ["dist"],
-    "include": [
-    "extraTs"
+    "exclude": [
+        "dist"
     ],
-    "types": ["src/types"]
+    "include": [
+        "src"
+    ],
+    "types": [
+        "src/types"
+    ]
 }
+
     

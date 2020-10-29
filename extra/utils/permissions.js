@@ -19,7 +19,7 @@ export const permissions = {
     }
 };
 export function hasPermission(moduleName, role, permissionType){
-    if(permissions[moduleName].all.includes(role)){     // checks only for permissionType 'all'   
+    if(permissions[moduleName].all.includes(role)){     // checks only for permissionType 'all'   ´
         console.log("The " + role + " has permission to "+permissionType);
     }
     else{
