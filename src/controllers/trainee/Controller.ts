@@ -1,8 +1,8 @@
-class TraineeController{
-    static instance: TraineeController
+class TraineeController {
+    static instance: TraineeController;
 
     static getInstance() {
-        if(TraineeController.instance){
+        if (TraineeController.instance) {
             return TraineeController.instance;
         }
         TraineeController.instance = new TraineeController();
@@ -10,76 +10,72 @@ class TraineeController{
     }
 
     get(req, res, next) {
-        try{
-            console.log("Inside get method Trainee Controller");
-            
+        try {
+            console.log('Inside get method Trainee Controller');
             res.send({
-                message: "Get message Successful",
+                message: 'Get message Successful',
                 data: [
                     {
-                        name: "Trainee123",
-                        address: "Noida",
+                        name: 'Get Trainee ',
+                        address: 'Noida',
                     }
                 ]
             });
-        }catch(err) {
-            console.log("Inside err", err);
+        } catch (err) {
+            console.log('Inside err', err);
         }
     }
 
     post(req, res, next) {
-        try{
-            console.log("Inside get method Trainee Controller");
-            
+        try {
+            console.log('Inside get method Trainee Controller');
             res.send({
-                message: "Post message Successful",
+                message: 'Post message Successful',
                 data: [
                     {
-                        name: "Trainee123",
-                        address: "Noida",
+                        name: 'Post Trainee123',
+                        address: 'Noida',
                     }
                 ]
             });
-        }catch(err) {
-            console.log("Inside err", err);
+        } catch (err) {
+            console.log('Inside err', err);
         }
     }
 
     put(req, res, next) {
-        try{
-            console.log("Inside get method Trainee Controller");
-            
+        try {
+            console.log('Inside get method Trainee Controller');
             res.send({
-                message: "Put message Successful",
+                message: 'Put message Successful',
                 data: [
                     {
-                        name: "Trainee123",
-                        address: "Noida",
+                        name: 'Trainee123',
+                        address: 'Noida',
                     }
                 ]
             });
-        }catch(err) {
-            console.log("Inside err", err);
+        } catch (err) {
+            console.log('Inside err', err);
         }
     }
 
     delete(req, res, next) {
-        try{
-            console.log("Inside get method Trainee Controller");
-            
+        try {
+            console.log('Inside get method Trainee Controller');
             res.send({
-                message: "delete message Successful",
+                message: 'delete message Successful',
                 data: [
                     {
-                        name: "Trainee123",
-                        address: "Noida",
+                        name: 'Trainee123',
+                        address: 'Noida',
                     }
                 ]
             });
-        }catch(err) {
-            console.log("Inside err", err);
+        } catch (err) {
+            console.log('Inside err', err);
         }
     }
 }
 
-export default TraineeController.getInstance()
+export default TraineeController.getInstance();

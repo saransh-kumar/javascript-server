@@ -1,10 +1,12 @@
 import * as express from 'express';
 import * as bodyparser from 'body-parser';
 import { notFoundRoute, errorHandler } from './libs/routes';
-import { nextTick } from 'process';
 import routes from './router';
+import { default as validationHandler } from './libs/routes/validationHandler';
 
 // console.log(bodyparser);
+console.log(validationHandler);
+
 class Server {
     private app;
     constructor(private config) {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-// import IError from './ierror';
+import IError from './ierror';
 
 export default (err, req: Request, res: Response, next: NextFunction) => {
     console.log(err);
@@ -10,4 +10,4 @@ export default (err, req: Request, res: Response, next: NextFunction) => {
         message: err.message || 'Error',
         timestamp: new Date(),
     });
-}
+};
