@@ -50,15 +50,16 @@ class Server {
 
         Database.open(MONGO_URL)
             .then((res) => {
-                console.log('Successfully connected to Mongo');
+                console.log('Successfully connected(MongoDb)...');
                 this.app.listen(PORT, (err) => {
-                    if (err){
-                        console.log(err);
+                    if ( err ) {
+                        console.log('Mongo has not started yet!!!', err);
                         return;
                     }
-                    const message = `|| App is running at port '$(port)' in '$(env) ||`;
+                    const message = '|| App is running at port ' + PORT + '||';
                     console.log(message);
-                })
+                });
+                // Database.disconnect(MONGO_URL);
             })
             .catch(err => console.log(err));
 

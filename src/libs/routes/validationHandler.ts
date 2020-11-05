@@ -9,35 +9,35 @@ export default function(config) {
             const value = req.query.element;
             const help = config[element];
             // console.log(help, 'config');
-            if(config[element].required == false){
+            if (config[element].required === false) {
                 console.log(config[element].default);
                 // one more condition for 'in:' required
             }
-            else{
-                Object.keys(help).forEach(function(item){
-                    if(item != 'required'){
-                        if(item == 'string' && help[item] == true){
+            else {
+                Object.keys(help).forEach( function(item) {
+                    if(item !== 'required') {
+                        if(item == 'string' && help[item] == true) {
                             console.log(value);
                         }
-                        else if(item == 'custom'){
+                        else if(item == 'custom') {
                             help[item](value);
                         }
-                        else{
-                            if(item == 'errorMessage'){
+                        else {
+                            if(item === 'errorMessage') {
                                 console.log(help[item]);
                             }
-                            else{
+                            else {
                                 console.log('Error');
                             }
                         }
                     }
-                })
+                });
             }
-        })
+        });
         // console.log(keys);
         // console.log("config", config.skip.required);
         // console.log(req.request);
         // console.log(req.body);
         next();
-    }
+    };
 }

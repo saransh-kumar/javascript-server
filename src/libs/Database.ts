@@ -1,5 +1,5 @@
-import { reject } from 'lodash';
 import * as mongoose from 'mongoose';
+import { default as seedData } from './seedData';
 
 class Database {
     static open(MONGO_URL) {
@@ -11,13 +11,16 @@ class Database {
                     reject(err);
                     return;
                 }
+                seedData();
                 // tslint:disable-next-line: no-null-keyword
                 resolve(null);
             });
         });
     }
-    static disconnect() {
-        console.log('Inside disconnect');
+    static disconnect(MONGO_URL) {
+        console.log('disconnecting Mongo...');
+        mongoose.connection.close();
+        console.log('Disconnected.');
     }
 }
 export default Database;
