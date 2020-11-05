@@ -3,6 +3,7 @@ import * as bodyparser from 'body-parser';
 import { notFoundRoute, errorHandler } from './libs/routes';
 import routes from './router';
 import { default as validationHandler } from './libs/routes/validationHandler';
+import Database from './libs/Database';
 
 // console.log(bodyparser);
 console.log(validationHandler);
@@ -45,14 +46,23 @@ class Server {
     }
 
     public run() {
-        const { app, config: { PORT } } = this;
+        const { app, config: { PORT, MONGO_URL } } = this;
 
-        app.listen(PORT, (err) => {
-            if (err) {
-                console.log( err );
-            }
-            console.log(`App is running on port : ${PORT}`);
-        });
+        Database.open(MONGO_URL)
+            .then((res) => {
+                console.log('Successfully connected to Mongo');
+                this.app.listen(PORT, (err) => {
+                    if (err){
+                        console.log(err);
+                        return;
+                    }
+                    const message = `|| App is running at port '$(port)' in '$(env) ||`;
+                    console.log(message);
+                })
+            })
+            .catch(err => console.log(err));
+
+        return this;
     }
 }
 
