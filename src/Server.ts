@@ -1,10 +1,13 @@
 import * as express from 'express';
 import * as bodyparser from 'body-parser';
 import { notFoundRoute, errorHandler } from './libs/routes';
-import { nextTick } from 'process';
 import routes from './router';
+import { default as validationHandler } from './libs/routes/validationHandler';
+import Database from './libs/Database';
 
 // console.log(bodyparser);
+console.log(validationHandler);
+
 class Server {
     private app;
     constructor(private config) {
@@ -43,14 +46,24 @@ class Server {
     }
 
     public run() {
-        const { app, config: { PORT } } = this;
+        const { app, config: { PORT, MONGO_URL } } = this;
 
-        app.listen(PORT, (err) => {
-            if (err) {
-                console.log( err );
-            }
-            console.log(`App is running on port : ${PORT}`);
-        });
+        Database.open(MONGO_URL)
+            .then((res) => {
+                console.log('Successfully connected(MongoDb)...');
+                this.app.listen(PORT, (err) => {
+                    if ( err ) {
+                        console.log('Mongo has not started yet!!!', err);
+                        return;
+                    }
+                    const message = '|| App is running at port ' + PORT + '||';
+                    console.log(message);
+                });
+                // Database.disconnect(MONGO_URL);
+            })
+            .catch(err => console.log(err));
+
+        return this;
     }
 }
 
