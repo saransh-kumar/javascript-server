@@ -42,7 +42,7 @@ class Server {
     }
 
     public initBodyParser () {
-        this.app.use(bodyparser.json({ type: 'application/*+json' }));
+        this.app.use(bodyparser.json());
     }
 
     public run() {
@@ -56,7 +56,7 @@ class Server {
                         console.log('Mongo has not started yet!!!', err);
                         return;
                     }
-                    const message = '|| App is running at port ' + PORT + '||';
+                    const message = '|| Mongo has started and App is running at port ' + PORT + '||';
                     console.log(message);
                 });
                 // Database.disconnect(MONGO_URL);

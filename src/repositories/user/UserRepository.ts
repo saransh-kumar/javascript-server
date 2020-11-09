@@ -17,4 +17,8 @@ export default class UserRepository {
         });
         return model.save();
     }
+
+    public count(){
+        return userModel.countDocuments();
+    }
 }

@@ -13,7 +13,7 @@ class Database {
                 }
                 seedData();
                 // tslint:disable-next-line: no-null-keyword
-                resolve(null);
+                resolve();
             });
         });
     }
