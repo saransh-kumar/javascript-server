@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import IError from './ierror';
+import IError from './IError';
 
-export default (err, req: Request, res: Response, next: NextFunction) => {
+export default (err: IError, req: Request, res: Response, next: NextFunction) => {
     console.log(err);
     res.status(err.code).json(
     {
