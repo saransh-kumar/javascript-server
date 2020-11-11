@@ -1,43 +1,46 @@
 export default function(config) {
     return function (req, res, next) {
-        // console.log(req.query.skip);
-        // console.log(req.query);
+
         const keys = Object.keys(req.query);
 
         keys.forEach(function(element) {
-            // console.log(element);
             const value = req.query.element;
             const help = config[element];
-            // console.log(help, 'config');
-            if (config[element].required === false) {
-                console.log(config[element].default);
-                // one more condition for 'in:' required
-            }
-            else {
-                Object.keys(help).forEach( function(item) {
-                    if(item !== 'required') {
-                        if(item == 'string' && help[item] == true) {
-                            console.log(value);
-                        }
-                        else if(item == 'custom') {
-                            help[item](value);
-                        }
-                        else {
-                            if(item === 'errorMessage') {
-                                console.log(help[item]);
-                            }
-                            else {
-                                console.log('Error');
-                            }
-                        }
+
+            Object.keys(help).forEach( function(item) {
+                if(item == 'required'){
+                    if(!config[element][item]) {
+                        console.log('Not required');
                     }
-                });
-            }
+                    else {
+                        
+                    }
+                }
+                if(item == 'string' || item == 'number'){
+                    console.log('In string and number section');
+                }
+                if(item == 'in'){
+                    if(config[element][item][0] == 'body'){
+                        console.log('In body');
+                    }
+                    else if(config[element][item][0] == 'query'){
+                        console.log('we are in query');
+                        // if(req.param){
+                        //     res.send({
+                        //         message: "please send Param query",
+                        //     })
+                        // }
+                    }
+                    else if(config[element][item][0] == 'headers'){
+                        console.log('in headers');
+                    }
+                    console.log('in in section', config[element][item][0]);
+                }
+                if(item == 'regex'){
+                    console.log('In regex section');
+                }
+                    });
         });
-        // console.log(keys);
-        // console.log("config", config.skip.required);
-        // console.log(req.request);
-        // console.log(req.body);
         next();
     };
 }

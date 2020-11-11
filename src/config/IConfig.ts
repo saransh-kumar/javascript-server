@@ -1,4 +1,6 @@
 export default interface IConfig {
-    PORT: number;
+    PORT: string;
     NODE_ENV: string;
+    MONGO_URL: string;
+    SECRET_KEY: string;
 }

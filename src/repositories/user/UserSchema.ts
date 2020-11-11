@@ -8,6 +8,7 @@ class UserSchema extends mongoose.Schema {
             name: String,
             email: String,
             password: String,
+            role: String
         });
         super(baseSchema, collections);
     }

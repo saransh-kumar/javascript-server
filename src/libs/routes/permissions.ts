@@ -1,16 +1,16 @@
 import { permissions } from './constants';
 
-export function hasPermission(moduleName, role, permissionType){
-    if(permissions[moduleName].all.includes(role)){     // checks only for permissionType 'all'   
+export function hasPermission(moduleName, role, permissionType) {
+    if(permissions[moduleName].all.includes(role)) {     // checks only for permissionType 'all'   
         console.log("The " + role + " has permission to "+permissionType);
     }
-    else{
+    else {
         const permission = permissions[moduleName][permissionType].includes(role);
-        if(permission){
+        if(permission) {
             console.log("The " + role + " has permission to "+permissionType);
             return true;
         }
-        else{
+        else {
             console.log("The " + role + " has no permission to "+permissionType);
             return false;
         }
