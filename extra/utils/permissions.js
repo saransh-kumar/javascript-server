@@ -18,17 +18,17 @@ export const permissions = {
         delete: [],
     }
 };
-export function hasPermission(moduleName, role, permissionType){
-    if(permissions[moduleName].all.includes(role)){     // checks only for permissionType 'all'   ´
-        console.log("The " + role + " has permission to "+permissionType);
+export function hasPermission(moduleName, role, permissionType) {
+    if(permissions[moduleName].all.includes(role)) {     // checks only for permissionType 'all'   ´
+        console.log("The " + role + " has permission to " + permissionType);
     }
-    else{
+    else {
         const permission = permissions[moduleName][permissionType].includes(role);
-        if(permission){
-            console.log("The " + role + " has permission to "+permissionType);
+        if(permission) {
+            console.log("The " + role + " has permission to " + permissionType);
         }
-        else{
-            console.log("The " + role + " has no permission to "+permissionType);
+        else {
+            console.log("The " + role + " has no permission to " + permissionType);
         }
     }
 };

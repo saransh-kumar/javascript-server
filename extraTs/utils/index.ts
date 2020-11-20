@@ -4,5 +4,5 @@ import validateUsers from './validation';
 export{
     hasPermission,
     validateUsers
-}
+};
 

@@ -6,33 +6,32 @@ const config = {
             required: true,
             string: true,
             in: ['body'],
-            custom: function(value)
-            {
+            custom: (value) => {
                 console.log('Value', value);
-                throw { error: 'Error Occured', message: 'Message'}
-            } 
+                throw { error: 'Error Occured', message: 'Message'};
+            }
         },
-        name: 
-        { 
+        name:
+        {
             required: true,
             regex: '',
             in: ['body'],
             errorMessage: 'Name is required',
-        } 
+        }
     },
-    delete: 
-    { 
+    delete:
+    {
         id:
-        { 
+        {
             required: true,
             errorMessage: 'Id is required',
-            in: ['params'] 
-        } 
+            in: ['params']
+        }
     },
     get:
-    { 
+    {
         skip:
-        { 
+        {
             required: false,
             default: 0,
             number: true,
@@ -40,7 +39,7 @@ const config = {
             errorMessage: 'Skip is invalid',
         },
         limit:
-        {   
+        {
             required: false,
             default: 10,
             number: true,
@@ -49,18 +48,18 @@ const config = {
         }
     },
     update:
-    { 
+    {
         id:
-        { 
+        {
             required: true,
             string: true,
-            in:['body'] },
+            in: ['body'] },
             dataToUpdate: { in: ['body'],
             required: true,
             isObject: true,
-            custom: function(dataToUpdate) {},
-        } 
+            // custom: (dataToUpdate) => {},
+        }
     }
-}
+};
 
 export default config;

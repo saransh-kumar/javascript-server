@@ -9,7 +9,8 @@ const config: IConfig = {
     PORT: envVars.PORT,
     NODE_ENV: envVars.NODE_ENV,
     MONGO_URL: envVars.MONGO_URL,
-    SECRET_KEY: envVars.SECRET_KEY
-}
+    SECRET_KEY: envVars.SECRET_KEY,
+    PASSWORD: envVars.PASSWORD
+};
 Object.freeze(config);
 export default config;

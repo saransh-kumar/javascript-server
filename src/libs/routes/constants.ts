@@ -6,7 +6,7 @@ export const permissions = {
         delete: [],
     },
     'getUsers1': {
-        all: ['head-trainer','trainee'],
+        all: ['head-trainer', 'trainee'],
         read: [ 'trainer'],
         write: ['trainer'],
         delete: [],

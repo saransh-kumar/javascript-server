@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-class VersionalSchema extends mongoose.Schema {
+export default class VersionalSchema extends mongoose.Schema {
 
     constructor(options: any, collections: any) {
         const versionedOptions = Object.assign({

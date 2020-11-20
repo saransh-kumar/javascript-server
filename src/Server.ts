@@ -56,7 +56,7 @@ class Server {
                         console.log('Mongo has not started yet!!!', err);
                         return;
                     }
-                    const message = '|| Mongo has started and App is running at port ' + PORT + '||';
+                    const message = '|| Mongo has started and App is running on port ' + PORT + '||';
                     console.log(message);
                 });
                 // Database.disconnect(MONGO_URL);
