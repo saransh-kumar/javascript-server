@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as bodyparser from 'body-parser';
 import { notFoundRoute, errorHandler } from './libs/routes';
 import routes from './router';
-import { default as validationHandler } from './libs/routes/validationHandler';
+import { validationHandler } from './libs/routes/validationHandler';
 import Database from './libs/Database';
 
 // console.log(bodyparser);
@@ -56,7 +56,7 @@ class Server {
                         console.log('Mongo has not started yet!!!', err);
                         return;
                     }
-                    const message = '|| Mongo has started and App is running at port ' + PORT + '||';
+                    const message = '|| Mongo has started and App is running on port ' + PORT + '||';
                     console.log(message);
                 });
                 // Database.disconnect(MONGO_URL);

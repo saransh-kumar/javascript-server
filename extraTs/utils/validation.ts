@@ -1,6 +1,7 @@
-import {validateEmail} from './helpers';
+import { validateEmail } from './helpers';
+import { IUser } from '../interfaces';
 
-export const users = [{
+export const users: IUser = [{
         traineeEmail: 'saransh@gmail.com',
         reviewerEmail: 'mehunna@gmail.com',
     },
@@ -12,24 +13,24 @@ export const users = [{
         traineeEmail: 'trainee1@successive.tech',
         reviewerEmail: 'reviewer1@successive.tech',
     }
-]
+];
 
 const validUser = [];
 const invalidUser = [];
-export default function validateUsers(users){
-    users.forEach(function(user){
+export default function validateUsers(users) {
+    users.forEach( (user) => {
         const {traineeEmail, reviewerEmail} = user;
-        if(validateEmail(traineeEmail) && validateEmail(reviewerEmail)){
-            validUser.push(user);   
+        if (validateEmail(traineeEmail) && validateEmail(reviewerEmail)) {
+            validUser.push(user);
         }
-        else{
+        else {
             invalidUser.push(user);
         }
-    })
-    console.log("Valid user count: " + validUser.length);
+    });
+    console.log('Valid user count: ' + validUser.length);
     console.log(validUser);
-    console.log("Invalid user count: " + invalidUser.length); 
-    console.log(invalidUser);                                     
-};
+    console.log('Invalid user count: ' + invalidUser.length);
+    console.log(invalidUser);
+}
 
 

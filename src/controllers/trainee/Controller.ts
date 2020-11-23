@@ -9,7 +9,7 @@ class TraineeController {
         return TraineeController.instance;
     }
 
-    get(req, res, next) {
+    async get(req, res, next) {
         try {
             console.log('Inside get method Trainee Controller');
             res.send({
@@ -26,7 +26,7 @@ class TraineeController {
         }
     }
 
-    post(req, res, next) {
+    async post(req, res, next) {
         try {
             console.log('Inside get method Trainee Controller');
             res.send({
@@ -43,7 +43,7 @@ class TraineeController {
         }
     }
 
-    put(req, res, next) {
+    async put(req, res, next) {
         try {
             console.log('Inside get method Trainee Controller');
             res.send({
@@ -60,7 +60,7 @@ class TraineeController {
         }
     }
 
-    delete(req, res, next) {
+    async delete(req, res, next) {
         try {
             console.log('Inside get method Trainee Controller');
             res.send({

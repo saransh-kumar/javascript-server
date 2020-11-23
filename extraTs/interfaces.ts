@@ -1,30 +1,12 @@
-interface Ipermission{
-    'getUsers':{
-        all: String[],
-        read: String[],
-        write: String[],
-        delete: String[]
-    },
-    'getUsers1':{
-        all: String[],
-        read: String[],
-        write: String[],
-        delete: String[]
-    },
-    'getUsers2':{
-        all: String[],
-        read: String[],
-        write: String[],
-        delete: String[]
-    }
+export interface Ipermission{
+    'getUsers'; 'getUsers1'; 'getUsers2': GetUsers;
 }
-
-interface IUser{
-    traineeEmail: String,
-    reviewerEmail: String,
-}
-
-export{
-    IUser,
-    Ipermission
+type GetUsers = {
+    all: string[],
+    read: string[],
+    write: string[],
+    delete: string[]
 };
+export interface IUser {
+    [index: number]: {traineeEmail: string, reviewerEmail: string };
+}
