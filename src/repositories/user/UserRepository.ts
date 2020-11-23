@@ -11,8 +11,4 @@ export default class UserRepository extends VersionableRepository<IUserModel, mo
     public static readOne(query): mongoose.DocumentQuery<IUserModel, IUserModel, {}> {
         return userModel.findOne(query).lean();
     }
-
-    public count() {
-        return userModel.countDocuments();
-    }
 }

@@ -13,7 +13,7 @@ export const users: IUser = [{
         traineeEmail: 'trainee1@successive.tech',
         reviewerEmail: 'reviewer1@successive.tech',
     }
-]
+];
 
 const validUser = [];
 const invalidUser = [];

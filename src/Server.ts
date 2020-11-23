@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as bodyparser from 'body-parser';
 import { notFoundRoute, errorHandler } from './libs/routes';
 import routes from './router';
-import { default as validationHandler } from './libs/routes/validationHandler';
+import { validationHandler } from './libs/routes/validationHandler';
 import Database from './libs/Database';
 
 // console.log(bodyparser);

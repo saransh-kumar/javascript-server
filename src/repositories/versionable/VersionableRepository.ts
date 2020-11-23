@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { DocumentQuery, Query } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
+
 export default class VersioningRepository<D extends mongoose.Document, M extends mongoose.Model<D>> {
 public static generateObjectId() {
     return String(mongoose.Types.ObjectId());

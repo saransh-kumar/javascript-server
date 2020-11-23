@@ -14,7 +14,7 @@ const config = {
         name:
         {
             required: true,
-            regex: '',
+            regex: /\w+.\w+@successive.tech$/i,
             in: ['body'],
             errorMessage: 'Name is required',
         }
@@ -57,7 +57,9 @@ const config = {
             dataToUpdate: { in: ['body'],
             required: true,
             isObject: true,
-            // custom: (dataToUpdate) => {},
+            custom: (dataToUpdate) => {
+                console.log(`we are updation $(dataToUpdate)`);
+            },
         }
     }
 };

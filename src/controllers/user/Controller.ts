@@ -3,9 +3,8 @@ import { UserRepository } from './index';
 import * as jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { config } from '../../config';
-import IUserModel from '../../repositories/user/IUserModel';
-import { objectify } from 'tslint/lib/utils';
 import * as bcrypt from 'bcrypt';
+import count from '../../repositories/versionable/VersionableRepository';
 
 class UserController {
     public userRepository: UserRepository; // = new UserRepository();
@@ -22,8 +21,13 @@ class UserController {
     async get(req, res, next) {
         try {
             const userRepository = new UserRepository();
-            const extractedData = await userRepository.getAll(req.body, {}, {});
+            const sort = {};
+            sort[`${req.query.sortedBy}`] = req.query.sortedOrder;
+            console.log(sort);
+            const extractedData = await userRepository.getAll(req.body).sort(sort).skip(Number(req.query.skip)).limit(Number(req.query.limit));
             res.status(200).send({
+                totalCount: await userRepository.count(req.body),
+                count: extractedData.length,
                 message: 'trainee fetched successfully',
                 data: [extractedData],
                 status: 'success',
@@ -69,7 +73,7 @@ class UserController {
                 message: 'trainee deleted successfully',
                 data: [
                     {
-                        'action': `data has deleted with id -> ${req.body.originalId}`
+                        'action': `data has deleted with id => ${req.body.originalId}`
                     }
                 ],
                 status: 'success',
@@ -83,6 +87,7 @@ class UserController {
         try {
             console.log('I am in login route');
             const { email , password } = req.body;
+            console.log(email);
             userModel.findOne({ email: (email) }, (err, docs) => {
                     if (bcrypt.compareSync(password, docs.password)) {
                         console.log('Existing user is:', docs);
@@ -119,9 +124,7 @@ class UserController {
             userModel.findOne({ email: (email) }, (err, docs) => {
                     res.send({
                             message: 'User Details',
-                            data: {
-                                docs,
-                            }
+                            data: { docs }
                         });
         });
     }
