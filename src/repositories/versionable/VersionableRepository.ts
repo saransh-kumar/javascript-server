@@ -37,7 +37,7 @@ public getAll(query: any, projection: any = {}, options: any = {}): DocumentQuer
     return this.model.find(finalQuery, projection, options);
 }
 
-protected findOne(query: any): DocumentQuery<D, D> {
+public findOne(query: any): DocumentQuery<D, D> {
     const finalQuery = { deletedAt: undefined, ...query };
     return this.model.findOne(finalQuery);
 }
@@ -80,6 +80,7 @@ public async userUpdate(data: any): Promise<D> {
     const newData = Object.assign(JSON.parse(JSON.stringify(prev)), data);
     console.log('New Data:', newData);
     newData._id = VersioningRepository.generateObjectId();
+    newData.createdAt = Date.now();
     delete newData.deletedAt;
 
     const model = new this.model(newData);

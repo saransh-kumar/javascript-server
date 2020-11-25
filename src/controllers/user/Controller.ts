@@ -1,10 +1,8 @@
 import { userModel }  from '../../repositories/user/UserModel';
 import { UserRepository } from './index';
 import * as jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
 import { config } from '../../config';
 import * as bcrypt from 'bcrypt';
-import count from '../../repositories/versionable/VersionableRepository';
 
 class UserController {
     public userRepository: UserRepository; // = new UserRepository();
@@ -18,92 +16,25 @@ class UserController {
         return UserController.instance;
     }
 
-    async get(req, res, next) {
-        try {
-            const userRepository = new UserRepository();
-            const sort = {};
-            sort[`${req.query.sortedBy}`] = req.query.sortedOrder;
-            console.log(sort);
-            const extractedData = await userRepository.getAll(req.body).sort(sort).skip(Number(req.query.skip)).limit(Number(req.query.limit));
-            res.status(200).send({
-                totalCount: await userRepository.count(req.body),
-                count: extractedData.length,
-                message: 'trainee fetched successfully',
-                data: [extractedData],
-                status: 'success',
-            });
-        } catch (err) {
-            console.log('error: ', err);
-        }
-    }
-
-
-    async create(req: Request, res: Response, next: NextFunction) {
-        try {
-            const userRepository = new UserRepository();
-            userRepository.userCreate(req.body);
-            res.status(200).send({
-                message: 'Data created successfully',
-                data: [req.body],
-                status: 'success',
-            });
-        } catch (err) {
-            console.log('error: ', err);
-        }
-    }
-
-    async update(req: Request, res: Response, next: NextFunction) {
-        try {
-            const userRepository = new UserRepository();
-            userRepository.userUpdate(req.body);
-            res.status(200).send({
-                message: 'trainee updated successfully',
-                data: [req.body]
-            });
-        } catch (err) {
-            console.log('error is ', err);
-        }
-    }
-
-    async delete(req: Request, res: Response, next: NextFunction) {
-        try {
-            const userRepository = new UserRepository();
-            userRepository.delete(req.body);
-            res.status(200).send({
-                message: 'trainee deleted successfully',
-                data: [
-                    {
-                        'action': `data has deleted with id => ${req.body.originalId}`
-                    }
-                ],
-                status: 'success',
-            });
-        } catch (err) {
-            console.log('error is ', err);
-        }
-    }
 
     async login(req, res) {
         try {
-            console.log('I am in login route');
             const { email , password } = req.body;
-            console.log(email);
             userModel.findOne({ email: (email) }, (err, docs) => {
                     if (bcrypt.compareSync(password, docs.password)) {
                         console.log('Existing user is:', docs);
                         const token = jwt.sign({docs}, config.SECRET_KEY, { expiresIn: '15m' });
-                        const decorderUser = jwt.verify(token, config.SECRET_KEY);
-                        console.log(decorderUser);
                         res.send({
-                            Data: token,
-                            Message: 'User Exists',
-                            status: 200
+                            status: 'ok',
+                            message: 'Authorization Token',
+                            data: token
                         });
                     }
                     else {
                         res.send({
-                                message: 'Invalid user',
-                                data1: {
+                                status: 'Error',
+                                message: 'Invalid User',
+                                data: {
                                     email: req.body.email,
                                     password: req.body.password
                                 }
@@ -111,7 +42,14 @@ class UserController {
                     }
             });
         } catch (err) {
-            res.send(err);
+            res.send({
+                status: 'Error',
+                message: 'Invalid Toke ',
+                data: {
+                    email: req.body.email,
+                    password: req.body.password
+                }
+            });
         }
     }
 
@@ -122,14 +60,22 @@ class UserController {
             const email = decorderUser.docs.email;
             console.log(token, email);
             userModel.findOne({ email: (email) }, (err, docs) => {
-                    res.send({
-                            message: 'User Details',
-                            data: { docs }
-                        });
+                res.send({
+                    status: 'ok',
+                    message: 'Me',
+                    data: { docs }
+                    });
         });
     }
         catch (err) {
-            console.log(err);
+            res.send({
+                status: 'Error',
+                message: 'Invalid Toke ',
+                data: {
+                    email: req.body.email,
+                    password: req.body.password
+                }
+            });
         }
     }
 }

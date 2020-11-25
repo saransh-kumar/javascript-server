@@ -54,7 +54,9 @@ const config = {
     dataToUpdate: { in: ['body'],
             required: true,
             isObject: true,
-            custom: (dataToUpdate) => {},
+            custom: (dataToUpdate) => {
+                console.log(`The data to be updated ${dataToUpdate}`);
+            },
         }
     }
 };
