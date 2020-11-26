@@ -20,6 +20,7 @@ class UserController {
     async login(req, res) {
         try {
             const { email , password } = req.body;
+            console.log(email, password);
             userModel.findOne({ email: (email) }, (err, docs) => {
                     if (bcrypt.compareSync(password, docs.password)) {
                         console.log('Existing user is:', docs);
@@ -56,6 +57,7 @@ class UserController {
     async me(req, res, next) {
         try {
             const token = req.headers.authorization;
+            console.log(token);
             const decorderUser = jwt.verify(token, config.SECRET_KEY);
             const email = decorderUser.docs.email;
             console.log(token, email);

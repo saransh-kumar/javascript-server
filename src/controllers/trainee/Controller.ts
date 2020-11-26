@@ -1,6 +1,6 @@
 import { UserRepository } from './index';
+
 import { Request, Response, NextFunction } from 'express';
-import { userModel } from '../../repositories/user/UserModel';
 
 
 class TraineeController {
@@ -13,6 +13,9 @@ class TraineeController {
         TraineeController.instance = new TraineeController();
         return TraineeController.instance;
     }
+
+
+
 
     async get(req, res) {
         try {
@@ -76,6 +79,7 @@ class TraineeController {
     async delete(req: Request, res: Response, next: NextFunction) {
         try {
             const userRepository = new UserRepository();
+            console.log(req.body);
             userRepository.delete(req.body);
             res.status(200).send({
                 status: 'ok',

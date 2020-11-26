@@ -16,8 +16,8 @@ constructor(model) {
 
 public async userCreate(options: any): Promise<D> {
     const id = VersioningRepository.generateObjectId();
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(options.password, salt);
+    const salt = await bcrypt.genSaltSync(10);
+    const hash = await bcrypt.hashSync(options.password, salt);
     options.password = hash;
     const model = new this.model({
         _id: id,

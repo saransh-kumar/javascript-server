@@ -1,11 +1,35 @@
 import * as express from 'express';
 import * as bodyparser from 'body-parser';
+import * as swaggerJsDoc from 'swagger-jsdoc';
+import * as swaggerUI from 'swagger-ui-express';
+
 import { notFoundRoute, errorHandler } from './libs/routes';
 import routes from './router';
-import validationHandler from './libs/routes/validationHandler';
 import Database from './libs/Database';
 
-console.log(validationHandler);
+
+const swaggerOptions = {
+    swaggerDefinition: {
+        info: {
+            title: 'Swagger javaScript-API',
+            version: '1.0.0',
+        },
+        securityDefinitions: {
+            Bearer: {
+            type: 'apiKey',
+            name: 'Authorization',
+            in: 'headers',
+        }
+    }
+},
+    asePath: '/api',
+    swagger: '4.1.5',
+    apis: ['./src/controllers/**/routes.ts'],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+
 
 class Server {
     private app;
@@ -20,18 +44,17 @@ class Server {
     }
 
     public setupRoutes() {
-        const { app } = this;
 
-        app.use((req, res, next) => {
+        this.app.use((req, res, next) => {
             console.log('Inside First MiddleWare');
             next();
         });
 
-        app.use('/health-check', (req, res) => {
+        this.app.use('/health-check', (req, res) => {
             res.send('I am OK');
         });
 
-        this.app.use('/api', routes );
+        this.app.use('/api', routes, swaggerUI.serve, swaggerUI.setup(swaggerDocs) );
 
         this.app.use( notFoundRoute );
 
