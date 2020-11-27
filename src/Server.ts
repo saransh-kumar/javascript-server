@@ -29,8 +29,6 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-
-
 class Server {
     private app;
     constructor(private config) {

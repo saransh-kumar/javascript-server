@@ -85,8 +85,13 @@ traineeRouter.route('/')
      *         in: query
      *         required: false
      *         type: number
-     *       - name: sort
-     *         description: Parameter to sort (name or email)
+     *       - name: sortedBy
+     *         description: Parameter to sort
+     *         in: query
+     *         required: false
+     *         type: string
+     *       - name: sortedOrder
+     *         description: Order [-1 or 1]
      *         in: query
      *         required: false
      *         type: string
@@ -117,7 +122,7 @@ traineeRouter.route('/')
      *         schema:
      *              $ref: '#/definitions/Unauthorized'
      */
-    .get(traineeController.get) //  authMiddleWare('getUsers', 'read'), validationHandler(config.get),
+    .get(authMiddleWare('getUsers', 'read'), validationHandler(config.get), traineeController.get)
     /**
      * @swagger
      *
@@ -160,7 +165,7 @@ traineeRouter.route('/')
      *         schema:
      *              $ref: '#/definitions/Unauthorized'
      */
-    .post(traineeController.create) // authMiddleWare('getUsers', 'read'), validationHandler(config.create),
+    .post(authMiddleWare('getUsers', 'read'), validationHandler(config.create), traineeController.create)
     /**
      * @swagger
      *
@@ -203,7 +208,7 @@ traineeRouter.route('/')
      *         schema:
      *              $ref: '#/definitions/Unauthorized'
      */
-    .put(traineeController.update) // authMiddleWare('getUsers', 'read'), validationHandler(config.update),
+    .put(authMiddleWare('getUsers', 'read'), validationHandler(config.update), traineeController.update)
     /**
      * @swagger
      *
@@ -246,6 +251,6 @@ traineeRouter.route('/')
      *         schema:
      *              $ref: '#/definitions/Unauthorized'
      */
-    .delete(traineeController.delete); // authMiddleWare('getUsers', 'read'), validationHandler(config.delete),
+    .delete(authMiddleWare('getUsers', 'read'), validationHandler(config.delete), traineeController.delete);
 
 export default traineeRouter;

@@ -1,7 +1,6 @@
 import * as dotenv  from 'dotenv';
 import IConfig from './IConfig';
 const envVars = dotenv.config().parsed;
-// import { config } from 'dotenv';
 
 console.log('Inside config');
 console.log(dotenv);

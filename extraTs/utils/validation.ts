@@ -17,6 +17,7 @@ export const users: IUser = [{
 
 const validUser = [];
 const invalidUser = [];
+// tslint:disable-next-line: no-shadowed-variable
 export default function validateUsers(users) {
     users.forEach( (user) => {
         const {traineeEmail, reviewerEmail} = user;

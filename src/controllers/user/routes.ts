@@ -119,12 +119,6 @@ const userRouter = Router();
      *       - application/json
      *     produces:
      *        - application/json
-     *     parameters:
-     *       - name: authorization
-     *         description: Provide token
-     *         in: headers
-     *         required: true
-     *         type: string
      *     responses:
      *       200:
      *         description: Trainee List

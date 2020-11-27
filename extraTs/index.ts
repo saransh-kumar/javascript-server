@@ -4,12 +4,12 @@ import { permissions } from './constants';
 
 export{
     permissions
-}
+};
 
 diamond(5);
-equilateral(8);                     //Patterns
+equilateral(8);
 
-hasPermission('getUsers1', 'trainer', 'delete');   //Utils
+hasPermission('getUsers1', 'trainer', 'delete');
 
 const users = [{
     traineeEmail: 'saransh@gmail.com',
@@ -23,6 +23,6 @@ const users = [{
     traineeEmail: 'trainee1@successive.tech',
     reviewerEmail: 'reviewer1@successive.tech',
 }
-]
+];
 
-validateUsers(users);   
+validateUsers(users);

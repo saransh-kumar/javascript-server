@@ -15,14 +15,13 @@ class TraineeController {
     }
 
 
-
-
     async get(req, res) {
         try {
             const userRepository = new UserRepository();
             const regex = /\S+@\S+\.\S+/;
             let sort = {};
             sort[`${req.query.sortedBy}`] = req.query.sortedOrder;
+            console.log(sort);
             if (req.query.sortedBy === undefined) {
                 const def = {};
                 def[`createdAt`] = -1;
