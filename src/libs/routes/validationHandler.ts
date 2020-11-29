@@ -1,112 +1,51 @@
-import { NextFunction, Request, Response } from 'express';
+export default (config) => {
+    return (req, res, next) => {
+        const errors = [];
+        let apiValue;
+        apiValue = (req.body.password === undefined) ? req.query : req.body;
+        console.log(apiValue);
+        const keys = Object.keys(config);
+        console.log(keys);  // [ 'name', 'email', 'role', 'password' ]
+        keys.forEach((element) => {
+            // console.log(element);
+            if (config[element].required === true && apiValue[element] === undefined) {
+                errors.push(`${config[element].errorMessage}`);
+            }
+            else {
+                // Checking the typeof string or number
+                if ( config[element].string !== undefined || config[element].number !== undefined ) {
+                    const typeOfValue = config[element].string ? 'string' : 'number';
+                    // console.log(typeOfValue);
+                if ( Number(apiValue[element]) && typeOfValue === 'string' && apiValue[element] !== undefined) {
+                    errors.push(`${element} should be a string`);
+                }
+                if ( !Number(apiValue[element]) && typeOfValue === 'number' && apiValue[element] !== undefined) {
+                    errors.push(`${element} should be a number`);
+                }
+            }
+                // Checking the in either body or query
+                if ( config[element].in[0] === 'body' && req.body.name === undefined) {
+                    errors.push(`please use body to pass the ${element}`);
+                }
+                if ( config[element].in[0] === 'query' && req.query.skip === undefined) {
+                    errors.push(`please use query to pass the ${element}`);
+                }
 
-export const validationHandler = ( config ) => ( req: Request, res: Response, next: NextFunction  ) => {
-    const error = [];
-    Object.keys(config).forEach((keys) => {
-        const inObject = config[keys];
-        inObject.in.forEach(inside => {
-            let value = req[inside][keys];
-            const a = {
-                key : '',
-                location: '',
-                errorMessage: ''
-            };
-            if ((inObject.required) && !(value)) {
-                a.key = keys;
-                a.location = inside;
-                a.errorMessage = inObject.errorMessage || `${keys} is required`;
-                error.push(a);
-                return;
-            }
-            value = value || inObject.default;
-            if (!value) {
-                return;
-            }
-            if ((inObject.number) && !(Number.isInteger(Number(value)))) {
-                a.key = keys;
-                a.location = inside;
-                a.errorMessage = inObject.errorMessage || `${keys}'s type is not number`;
-                error.push(a);
-                return;
-            }
-            if ((inObject.string) && !(typeof value === 'string')) {
-                a.key = keys;
-                a.location = inside;
-                a.errorMessage = inObject.errorMessage || `${keys}'s type is not string`;
-                error.push(a);
-                return;
-            }
-            const regex = inObject.regex;
-            if ((regex) && !regex.test(value)) {
-                a.key = keys;
-                a.location = inside;
-                a.errorMessage = inObject.errorMessage || `${keys} is invalid`;
-                error.push(a);
-                return;
-            }
-            if (inObject.isObject && (!(typeof value === 'object') || !(Object.entries(value).length))) {
-                a.key = keys;
-                a.location = inside;
-                a.errorMessage = `${keys} is invalid`;
-                error.push(a);
-                return;
+                // Email validation that should match abc@successive.tech formate
+                if ( element === 'email' && !(config.email.regex).test(apiValue.email)) {
+                    errors.push('email should be in -abc@successive.tech- format');
+                }
+
+                // Checking if skip and limit are undefined then putting default value
+                if ( element === 'skip' &&  apiValue.skip === undefined ) {
+                    apiValue.skip = config[element].default;
+                }
+                if ( element === 'limit' &&  apiValue.limit === undefined ) {
+                    apiValue.limit = config[element].default;
+                }
             }
         });
-    });
-    if (error.length) {
-        return res.status(400).send(error);
-    }
-    next ();
+        console.log(errors);
+        next();
+    };
 };
-
-// export default (config) => {
-//     return (req, res, next) => {
-
-//         let keys;
-//         if (req.body) {
-//             console.log('In body.....');
-//             keys = Object.keys(req.body);
-//         }
-//         else {
-//             console.log('In query.....');
-//             keys = Object.keys(req.query);
-//         }
-
-//         console.log('in the config section...', keys);
-//         keys.forEach((element) => {
-//             const value = req.query.element;
-//             const help = config[element];
-
-//             Object.keys(help).forEach( (item) => {
-//                 console.log(item);
-//                 if (item === 'required') {
-//                     if (!config[element][item]) {
-//                         console.log('Not required');
-//                     }
-//                     else { console.log('in else part'); }
-//                 }
-//                 if (item === 'string' || item === 'number') {
-//                     console.log('In string and number section');
-//                 }
-//                 if (item === 'in') {
-//                     if (config[element][item][0] === 'body') {
-//                         console.log('In body');
-//                     }
-//                     else if (config[element][item][0] === 'query') {
-//                         console.log('we are in query');
-//                         // if(req.param){
-//                         //     res.send({
-//                         //         message: "please send Param query",
-//                         //     })
-//                         // }
-//                     }
-//                     console.log('in in section', config[element][item][0]);
-//                 }
-//                 if (item === 'regex') {
-//                     console.log('In regex section');
-//                 }
-//                     });
-//         });
-//         next();
-//     };
-// };

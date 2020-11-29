@@ -1,31 +1,36 @@
 const config = {
     create:
     {
-        id:
-        {
-            required: true,
+        name: {
+            required: false,
             string: true,
             in: ['body'],
-            custom: (value) => {
-                console.log('Value', value);
-                throw { error: 'Error Occured', message: 'Message'};
-            }
+            errorMessage: 'Name is required',
         },
-        name:
-        {
+        email: {
             required: true,
             regex: /\w+.\w+@successive.tech$/i,
             in: ['body'],
-            errorMessage: 'Name is required',
+            errorMessage: 'Email is required',
+        },
+        role: {
+            required: false,
+            string: true,
+            in: ['body'],
+        },
+        password: {
+            required: true,
+            string: true,
+            in: ['body'],
+            errorMessage: 'Password is required',
         }
     },
     delete:
     {
-        id:
-        {
+        originalId: {
             required: true,
             errorMessage: 'Id is required',
-            in: ['params']
+            in: ['body'],
         }
     },
     get:
@@ -45,22 +50,21 @@ const config = {
             number: true,
             in: ['query'],
             errorMessage: 'Limit is invalid',
+        },
+        search: {
+            required: false,
+            string: true,
+            in: ['query'],
+            errorMessage: 'Search is invalid',
         }
     },
     update:
     {
-        id:
+        originalId:
         {
             required: true,
             string: true,
-            in: ['body'] },
-            dataToUpdate: { in: ['body'],
-            required: true,
-            isObject: true,
-            custom: (dataToUpdate) => {
-                console.log(`we are updation $(dataToUpdate)`);
-            },
-        }
+            in: ['body'], }
     }
 };
 

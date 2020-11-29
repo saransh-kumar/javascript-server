@@ -1,22 +1,148 @@
 import { Router } from 'express';
 
 import userController from './Controller';
-import { validationHandler } from '../../libs/routes/validationHandler';
+import validationHandler from '../../libs/routes/validationHandler';
 import config from './validation';
 import validation from './validation';
 import authMiddleWare from '../../libs/routes/authMiddleWare';
 
-const userRouter = Router();
 
-userRouter.route('/')
-    .get(userController.get)   // authMiddleWare('getUser', 'read'), validationHandler(validation.get), userController.get
-    .post(userController.create)  // authMiddleWare('getUser', 'read'), validationHandler(validation.createc), userController.create
-    .put(userController.update) // authMiddleWare('getUsers', 'read'), validationHandler(validation.update), userController.update
-    .delete(userController.delete);  // authMiddleWare('getUsers', 'read'), validationHandler(validation.delete), userController.delete
-userRouter.route('/login')
-    .post( userController.login );
-userRouter.route('/me')
-    .get( userController.me );
+/**
+ * @swagger
+ *
+ *  definitions:
+ *      TraineePost:
+ *        type: object
+ *        properties:
+ *          email:
+ *              type: string
+ *              example: sharma@successive.tech
+ *          name:
+ *              type: string
+ *              example: sharma
+ *          password:
+ *              type: string
+ *              example: 1234
+ *          role:
+ *               type: string
+ *               example: trainee
+ *      TraineeResponse:
+ *        type: object
+ *        properties:
+ *          _id:
+ *              example: 5e4a36bc64824b1f80b730cd
+ *          email:
+ *              type: string
+ *              example: sharma@successive.tech
+ *          name:
+ *              type: string
+ *              example: sharma
+ *          role:
+ *              type: string
+ *              example: trainee
+ *          originalId:
+ *              example: 5e4a36bc64824b1f80b666cd
+ *          createdAt:
+ *              example: 2020-02-20T11:06:29.125Z
+ *          v:
+ *              example:444
+ *      Unauthorized:
+ *        type: object
+ *        properties:
+ *          error:
+ *              example: Unauthorized
+ *          message:
+ *              example: Token not found
+ *          status:
+ *              example: 403
+ *          timestamp:
+ *               example: 2020-11-25T17:34:37.066Z
+ *
+ */
+const userRouter = Router();
+    /**
+     * @swagger
+     *
+     * /api/user/login:
+     *   post:
+     *     description: Login Credential
+     *     security:
+     *       - Bearer: []
+     *     tags:
+     *       - User
+     *     consumes:
+     *       - application/json
+     *     produces:
+     *        - application/json
+     *     parameters:
+     *       - name: body
+     *         description: provide email and password
+     *         in: body
+     *         required: true
+     *         type: string
+     *     responses:
+     *       200:
+     *         description: Trainee List
+     *         schema:
+     *              properties:
+     *                  status:
+     *                      example: OK
+     *                  message:
+     *                      example: 'Successfully fetched Trainee'
+     *                  TotalCount:
+     *                      example: 5
+     *                  TraineeCount:
+     *                      example: 2
+     *                  data:
+     *                      type: object
+     *                      allOf:
+     *                              - $ref: '#/definitions/TraineeResponse'
+     *       403:
+     *         description: unauthorised access
+     *         schema:
+     *              $ref: '#/definitions/Unauthorized'
+     *
+     */
+    userRouter.route('/login')
+        .post( authMiddleWare('getUsers', 'read'), validationHandler(config.create), userController.login );
+    /**
+     * @swagger
+     *
+     * /api/user/me:
+     *   get:
+     *     description: Authorised User
+     *     security:
+     *       - Bearer: []
+     *     tags:
+     *       - User
+     *     consumes:
+     *       - application/json
+     *     produces:
+     *        - application/json
+     *     responses:
+     *       200:
+     *         description: Trainee List
+     *         schema:
+     *              properties:
+     *                  status:
+     *                      example: OK
+     *                  message:
+     *                      example: 'Successfully fetched Trainee'
+     *                  TotalCount:
+     *                      example: 5
+     *                  TraineeCount:
+     *                      example: 2
+     *                  data:
+     *                      type: object
+     *                      allOf:
+     *                              - $ref: '#/definitions/TraineeResponse'
+     *       403:
+     *         description: unauthorised access
+     *         schema:
+     *              $ref: '#/definitions/Unauthorized'
+     */
+    userRouter.route('/me')
+    .get(authMiddleWare('getUsers', 'read'), validationHandler(config.get), userController.me );
 
 
 

@@ -1,3 +1,8 @@
+import { UserRepository } from './index';
+
+import { Request, Response, NextFunction } from 'express';
+
+
 class TraineeController {
     static instance: TraineeController;
 
@@ -9,71 +14,79 @@ class TraineeController {
         return TraineeController.instance;
     }
 
-    async get(req, res, next) {
+
+    async get(req, res) {
         try {
-            console.log('Inside get method Trainee Controller');
-            res.send({
-                message: 'Get message Successful',
-                data: [
-                    {
-                        name: 'Get Trainee ',
-                        address: 'Noida',
-                    }
-                ]
+            const userRepository = new UserRepository();
+            const regex = /\S+@\S+\.\S+/;
+            let sort = {};
+            sort[`${req.query.sortedBy}`] = req.query.sortedOrder;
+            console.log(sort);
+            if (req.query.sortedBy === undefined) {
+                const def = {};
+                def[`createdAt`] = -1;
+                sort = def;
+            }
+            let searchedData;
+            if (req.query.search !== undefined) {
+                searchedData = regex.test(String(req.query.search)) ? { email: req.query.search } : { name: req.query.search };
+            }
+            const extractedData = await userRepository.getAll(searchedData).sort(sort).skip(Number(req.query.skip)).limit(Number(req.query.limit));
+            res.status(200).send({
+                status: 'ok',
+                message: 'Successfully fetched Trainees',
+                data: {
+                    count: extractedData.length,
+                    totalCount: await userRepository.count(req.body),
+                    records: extractedData
+                }
             });
         } catch (err) {
-            console.log('Inside err', err);
+            console.log('error: ', err);
         }
     }
 
-    async post(req, res, next) {
+
+    async create(req: Request, res: Response, next: NextFunction) {
         try {
-            console.log('Inside get method Trainee Controller');
-            res.send({
-                message: 'Post message Successful',
-                data: [
-                    {
-                        name: 'Post Trainee123',
-                        address: 'Noida',
-                    }
-                ]
+            const userRepository = new UserRepository();
+            userRepository.userCreate(req.body);
+            res.status(200).send({
+                status: 'ok',
+                message: 'Trainee Created Successfully',
+                data: req.body,
             });
         } catch (err) {
-            console.log('Inside err', err);
+            console.log('error: ', err);
         }
     }
 
-    async put(req, res, next) {
+    async update(req: Request, res: Response, next: NextFunction) {
         try {
-            console.log('Inside get method Trainee Controller');
-            res.send({
-                message: 'Put message Successful',
-                data: [
-                    {
-                        name: 'Trainee123',
-                        address: 'Noida',
-                    }
-                ]
+            const userRepository = new UserRepository();
+            userRepository.userUpdate(req.body);
+            res.status(200).send({
+                status: 'ok',
+                message: 'Trainee Updated Successfully',
+                data: {id: req.body.originalId}
             });
         } catch (err) {
-            console.log('Inside err', err);
+            console.log('error is ', err);
         }
     }
 
-    async delete(req, res, next) {
+    async delete(req: Request, res: Response, next: NextFunction) {
         try {
-            console.log('Inside get method Trainee Controller');
-            res.send({
-                message: 'delete message Successful',
-                data: [
-                    {
-                        name: 'Trainee123',
-                        address: 'Noida',
-                    }
-                ]
+            const userRepository = new UserRepository();
+            console.log(req.body);
+            userRepository.delete(req.body);
+            res.status(200).send({
+                status: 'ok',
+                message: 'Trainee Deleted Successfully',
+                data: {id: req.body.originalId}
             });
         } catch (err) {
-            console.log('Inside err', err);
+            console.log('error is ', err);
         }
     }
 }
