@@ -2,7 +2,7 @@ const config = {
     create:
     {
         name: {
-            required: true,
+            required: false,
             string: true,
             in: ['body'],
             errorMessage: 'Name is required',

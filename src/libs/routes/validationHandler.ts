@@ -2,7 +2,7 @@ export default (config) => {
     return (req, res, next) => {
         const errors = [];
         let apiValue;
-        apiValue = (req.body.name === undefined) ? req.query : req.body;
+        apiValue = (req.body.password === undefined) ? req.query : req.body;
         console.log(apiValue);
         const keys = Object.keys(config);
         console.log(keys);  // [ 'name', 'email', 'role', 'password' ]

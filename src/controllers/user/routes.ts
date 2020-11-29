@@ -104,7 +104,7 @@ const userRouter = Router();
      *
      */
     userRouter.route('/login')
-        .post( userController.login );
+        .post( authMiddleWare('getUsers', 'read'), validationHandler(config.create), userController.login );
     /**
      * @swagger
      *
@@ -142,7 +142,7 @@ const userRouter = Router();
      *              $ref: '#/definitions/Unauthorized'
      */
     userRouter.route('/me')
-    .get( userController.me );
+    .get(authMiddleWare('getUsers', 'read'), validationHandler(config.get), userController.me );
 
 
 
