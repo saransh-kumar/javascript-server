@@ -1,4 +1,6 @@
-export const permissions = {
+import { Ipermission } from './../interfaces';
+
+export const permissions: Ipermission = {
     'getUsers': {
         all: ['head-trainer'],
         read: ['trainee', 'trainer'],
@@ -6,7 +8,7 @@ export const permissions = {
         delete: [],
     },
     'getUsers1': {
-        all: ['head-trainer','trainee'],
+        all: ['head-trainer', 'trainee'],
         read: [ 'trainer'],
         write: ['trainer'],
         delete: [],
@@ -19,23 +21,22 @@ export const permissions = {
     }
 };
 export function hasPermission(moduleName, role, permissionType) {
-    if(permissions[moduleName].all.includes(role)) {     // checks only for permissionType 'all'   ´
-        console.log("The " + role + " has permission to " + permissionType);
+    if (permissions[moduleName].all.includes(role)) {     // checks only for permissionType 'all'
+        console.log('The ' + role + ' has permission to ' + permissionType);
     }
     else {
         const permission = permissions[moduleName][permissionType].includes(role);
-        if(permission) {
-            console.log("The " + role + " has permission to " + permissionType);
+        if (permission) {
+            console.log('The ' + role + ' has permission to ' + permissionType);
         }
         else {
-            console.log("The " + role + " has no permission to " + permissionType);
+            console.log('The ' + role + ' has no permission to ' + permissionType);
         }
     }
-};
+}
 
 // hasPermission('getUsers1', 'trainer', 'delete');
 // console.log(hasPermission('getUsers', 'head-trainer', 'all'));
 // console.log(hasPermission('getUsers2', 'trainee', 'delete'));
 // console.log(hasPermission('getUsers1', 'trainer', 'delete'));
 // console.log(permissions[moduleName][permissionType].includes(role));
-
